@@ -1,7 +1,7 @@
 module Main where
 
 import App (runProgram)
-import Common
+import Common ()
 import qualified Data.Maybe as M
 import Options.Applicative
 import Types (Options(Options))

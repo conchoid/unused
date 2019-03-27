@@ -1,4 +1,4 @@
-FROM haskell:8.2
+FROM haskell:8.2 AS builder
 
 ENV AG_VERSION 0.33.0
 
@@ -23,5 +23,15 @@ COPY . /app
 
 WORKDIR /app
 RUN stack setup && stack install
+
+FROM debian:stretch-slim
+
+COPY --from=builder /usr/local/bin/ag /usr/local/bin/ag
+COPY --from=builder /root/.local/bin/unused /usr/local/bin/unused
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
+                    git \
+                    exuberant-ctags \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
