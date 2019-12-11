@@ -22,7 +22,7 @@ RUN gpg --keyserver keyserver.ubuntu.com --recv 3F0A04B6 && \
 COPY . /app
 
 WORKDIR /app
-RUN stack setup && stack install
+RUN stack upgrade && stack setup && stack install
 
 FROM debian:stretch-slim
 
