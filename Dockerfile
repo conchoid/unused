@@ -24,7 +24,7 @@ COPY . /app
 WORKDIR /app
 RUN stack upgrade && stack setup && stack install
 
-FROM debian:stretch-slim
+FROM debian:buster-slim
 
 COPY --from=builder /usr/local/bin/ag /usr/local/bin/ag
 COPY --from=builder /root/.local/bin/unused /usr/local/bin/unused
